@@ -55,6 +55,7 @@ int main() {
 	unsigned size;
 	int top, element, response;
 	StackNode* stack = NULL;
+	StackNode* temp = NULL;
 
 operation:
 	printf("1. Add element to stack.\n");
@@ -79,6 +80,13 @@ operation:
 				printf("Element on top is %d.\n", top);
 			break;
 		case 4:
+			while(stack!=NULL) {
+				temp = stack;
+				stack = stack->nextNode;
+				printf("Free Memory with %d.\n", temp->value);
+				free(temp);
+			}
+			free(stack);
 			return 0;
 		default:
 			printf("Enter a proper response.");

@@ -36,7 +36,7 @@ void pop(StackNode** stackNode) {
 		printf("Stack is empty. Cannot pop out elements.\n");
 		return;
 	}
-	stackNode* toPop = *stackNode;
+	StackNode* toPop = *stackNode;
 	*stackNode = (*stackNode)->nextNode;
 	printf("Element popped out is %d.\n", toPop->value);
 	free(toPop);
@@ -55,6 +55,7 @@ int main() {
 	unsigned size;
 	int top, element, response;
 	StackNode* stack = NULL;
+	StackNode* temp = NULL;
 
 operation:
 	printf("1. Add element to stack.\n");
@@ -81,6 +82,13 @@ operation:
 		case 4:
 			return 0;
 		default:
+			while(stack!=NULL) {
+				temp = stack;
+				stack = stack->nextNode;
+				printf("Free Memory with %d.\n", temp->value);
+				free(temp);
+			}
+			free(stack);
 			printf("Enter a proper response.");
 	}
 	goto operation;
