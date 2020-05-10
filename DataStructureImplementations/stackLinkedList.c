@@ -25,6 +25,10 @@ bool isEmpty(StackNode* stackNode) {
 void push(StackNode** stackNode, int element) {
 	StackNode* newNode = createStackNode(element);
 
+	if(newNode == NULL) {
+		printf("Error in node creation.\n");
+		return;
+	}
 	newNode->nextNode = *stackNode;
 	*stackNode = newNode;
 	printf("Element pushed into stack is %d.\n", (*stackNode)->value);
@@ -52,7 +56,6 @@ int peek(StackNode** stackNode) {
 	
 }
 int main() {
-	unsigned size;
 	int top, element, response;
 	StackNode* stack = NULL;
 	StackNode* temp = NULL;
@@ -83,7 +86,7 @@ operation:
 			while(stack!=NULL) {
 				temp = stack;
 				stack = stack->nextNode;
-				printf("Free Memory with %d.\n", temp->value);
+				printf("Free up node with %d.\n", temp->value);
 				free(temp);
 			}
 			free(stack);

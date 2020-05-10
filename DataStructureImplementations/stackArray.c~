@@ -75,6 +75,7 @@ int main() {
 	}
 
 operation:
+	printf("\n");
 	printf("1. Add element to stack.\n");
 	printf("2. Pop element from stack.\n");
 	printf("3. View top of stack.\n");
