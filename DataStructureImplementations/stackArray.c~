@@ -75,10 +75,10 @@ int main() {
 	}
 
 operation:
-	printf("1. Add element to stack.");
-	printf("2. Pop element from stack.");
-	printf("3. View top of stack.");
-	printf("4. Quit");
+	printf("1. Add element to stack.\n");
+	printf("2. Pop element from stack.\n");
+	printf("3. View top of stack.\n");
+	printf("4. Quit\n");
 	printf("Your response :");
 	scanf("%d", &response);
 	
@@ -97,6 +97,8 @@ operation:
 				printf("Element on top is %d.\n", top);
 			break;
 		case 4:
+			free(stack->array);
+			free(stack);
 			return 0;
 		default:
 			printf("Enter a proper response.");

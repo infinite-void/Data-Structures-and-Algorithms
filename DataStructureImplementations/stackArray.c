@@ -97,6 +97,8 @@ operation:
 				printf("Element on top is %d.\n", top);
 			break;
 		case 4:
+			free(stack->array);
+			free(stack);
 			return 0;
 		default:
 			printf("Enter a proper response.");
