@@ -3,12 +3,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/*
-	The struct stack include 3 items:
-	1. capacity - the maximum capacity of the stack as mentioned by the user in the beginnning. The size of the stack is 
-		      fixed and cannot be altered
-	2. top - this item always points to the index of the array that contains the top most element of the stack
-	3. array - this item points to the data container that stores the element of the stack
+/* The struct stack include 3 items:
+ * 1. capacity - the maximum capacity of the stack as mentioned by the user in the beginnning. The size of the stack is 
+ * fixed and cannot be altered
+ * 2. top - this item always points to the index of the array that contains the top most element of the stack
+ * 3. array - this item points to the data container that stores the element of the stack
 */
 typedef struct Stack {
 	unsigned capacity;
@@ -17,9 +16,9 @@ typedef struct Stack {
 }Stack;
 
 /* The createStack() method takes the maximum size of stack as input and 
-   initialises the stack capacity and top index. It mainly allocates memory 
-   for the data container to store elements of stack
-*/
+ * initialises the stack capacity and top index. It mainly allocates memory 
+ * for the data container to store elements of stack
+ */
 
 Stack* createStack(unsigned size) {
 	Stack* stack    = (Stack*)malloc(sizeof(Stack));
@@ -28,12 +27,16 @@ Stack* createStack(unsigned size) {
 	stack->top      = -1;
 	stack->array    = (int*)malloc(size *  sizeof(int));
 	
+	if(!stack->array) 
+		return NULL;	
+	
 	return stack;
 }
 
 /* the stack->top pointing to -1 is out of scope for the data container
-   the top index being out of scope denotes the container is empty
-*/
+ * the top index being out of scope denotes the container is empty
+ */
+
 bool isEmpty(Stack* stack) {
 	if(stack->top == -1)
 		return true;
@@ -41,8 +44,9 @@ bool isEmpty(Stack* stack) {
 }
 
 /* Given the maximum capacity the index of the container cannot
-   exceed capacity - 1
-*/
+ * exceed capacity - 1
+ */
+
 bool isFull(Stack* stack) {
 	if(stack->top == stack->capacity - 1)
 		return true;
@@ -50,6 +54,9 @@ bool isFull(Stack* stack) {
 }
 
 
+/* The stack is first checked it its full. If not the element
+ * is added and the top index in incremented
+ */
 
 void push(Stack* stack, int element) {
 	if(isFull(stack)) {
@@ -62,6 +69,11 @@ void push(Stack* stack, int element) {
 	return;
 }
 
+/* The stack is checked if its empty. If not the 
+ * top index is decremented. The value will be 
+ * overwritten when next next element is added 
+ * in its position
+ */
 void pop(Stack* stack) {
 	if(isEmpty(stack)) {
 		printf("Stack is empty. Cannot pop out elements.\n");
@@ -73,6 +85,11 @@ void pop(Stack* stack) {
 	return;
 }
 
+/* The stack is checked if its empty
+ * if its not element in the top index of the 
+ * array is returned
+ */
+
 int peek(Stack* stack) {
 	if(isEmpty(stack)) {
 		printf("Stack is empty. No element on top.\n");
@@ -80,6 +97,7 @@ int peek(Stack* stack) {
 	}
 	return stack->array[stack->top];
 }
+
 int main() {
 	unsigned size;
 	int top, element, response;
