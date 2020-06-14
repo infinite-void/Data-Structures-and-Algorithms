@@ -1,12 +1,25 @@
+// Author: infinite-void
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
+/*
+	The struct stack include 3 items:
+	1. capacity - the maximum capacity of the stack as mentioned by the user in the beginnning. The size of the stack is 
+		      fixed and cannot be altered
+	2. top - this item always points to the index of the array that contains the top most element of the stack
+	3. array - this item points to the data container that stores the element of the stack
+*/
 typedef struct Stack {
 	unsigned capacity;
 	int top;
 	int* array;	
 }Stack;
+
+/* The createStack() method takes the maximum size of stack as input and 
+   initialises the stack capacity and top index. It mainly allocates memory 
+   for the data container to store elements of stack
+*/
 
 Stack* createStack(unsigned size) {
 	Stack* stack    = (Stack*)malloc(sizeof(Stack));
@@ -14,21 +27,29 @@ Stack* createStack(unsigned size) {
 	stack->capacity = size;
 	stack->top      = -1;
 	stack->array    = (int*)malloc(size *  sizeof(int));
-
+	
 	return stack;
 }
 
+/* the stack->top pointing to -1 is out of scope for the data container
+   the top index being out of scope denotes the container is empty
+*/
 bool isEmpty(Stack* stack) {
 	if(stack->top == -1)
 		return true;
 	return false;
 }
 
+/* Given the maximum capacity the index of the container cannot
+   exceed capacity - 1
+*/
 bool isFull(Stack* stack) {
 	if(stack->top == stack->capacity - 1)
 		return true;
 	return false;
 }
+
+
 
 void push(Stack* stack, int element) {
 	if(isFull(stack)) {
