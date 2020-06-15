@@ -52,8 +52,8 @@ int main(void)
 	list = (item *) malloc(N * sizeof(item));
 	
 	if (!list) {
-		printf("Dynamic memory allocation failed!\n");
-		return (-1);
+		fprintf(stderr, "Dynamic memory allocation failed!\n");
+		return -1;
 	}
 	
 	printf("Enter the item's profit and weight in space separated pairs: ");
@@ -71,20 +71,24 @@ int main(void)
 	/* This step takes N log N time */
 	qsort(list, N, sizeof(item), compar);
 	
-	/* The algorithm now follows */
+	/* The algorithm now follows
+	
+	   At each step, we choose the item remaining with the best Profit to Weight ratio 
+	   If the entire item can be added to the knapsack, do so
+	   Otherwise add the fractional part - whatever part that fills the rest of the knapsack 
+	   (Wremaining / Witem) * Pitem gives the profit that can be obtained by the fraction
+	*/
+	
 	i = 0;
 	while (weight_so_far < C) {
-		/* At each step, we choose the item remaining with the best Profit to Weight ratio */
 		
-		/* If the entire item can be added to the knapsack, do so */
 		if (list[i].weight < (C - weight_so_far)) {
 			weight_so_far += list[i].weight;
 			Total_Profit += list[i].profit;
 			i++;
 		}
 		
-		/* Otherwise add the fractional part - whatever part that fills the rest of the knapsack */
-		/* (Wremaining / Witem) * Pitem gives the profit that can be obtained by the fraction */
+		
 		else {
 			Total_Profit += ( (((float)(C - weight_so_far)) / list[i].weight) * list[i].profit );
 			weight_so_far = C;

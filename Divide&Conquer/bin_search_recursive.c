@@ -1,24 +1,31 @@
-/* Author: Keshav */
+/* Author: Keshav 
+Please report any bugs to the issue tracker on GitHub
+*/
 
 #include <stdio.h>
 #include <stdlib.h> 
 
+/* Working:
+   Mid gives the first of the middle elements for even length sequences, and the exact middle for odd length.
+   
+   If the required element is in the middle, stop.
+   If the required element is less than array[mid], search the subarray a[start]...a[mid - 1] by setting end = mid - 1 and recursing
+   If not, search the subarray a[mid + 1]...a[end] by setting start = mid + 1 and recursing
+   
+   Start > End means that there is no subarray to search - hence we terminate and return -1 to indicate that the element is not found
+  */
+
 int binary_search(int* array, int search, int start, int end)
 {
-	/* Condition for termination: Element is not found */
     if (start > end)
-        return -1;
-    
-	/* This gives the first of the middle elements for even length sequences, and the exact middle for odd length  */
+        return -1;   
+	
     int mid = start + (end - start) / 2;
     
-	/* If the required element is in the middle, stop */
     if (array[mid] == search) 
         return mid;
-	/* If the element is less than the middle element, search in the first half*/
     else if (array[mid] > search)
         return binary_search(array, search, start, mid - 1);
-	/* If not, search in the second half */
     else
         return binary_search(array, search, mid + 1, end);
 }
