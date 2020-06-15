@@ -1,3 +1,4 @@
+//Author: infinite-void
 #include <stdio.h>
 #include <stdlib.h>
 
