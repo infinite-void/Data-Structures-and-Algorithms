@@ -92,19 +92,8 @@ int main(void)
 			/* Technically, once a fractional part is added, the knapsack will always be full, so we can just break here */
 		}
 	}
-	
+    	
 	printf("The total profit that can be obtained is %f\n", Total_Profit);
 	
 	return 0;
 }
-
-/* Suggested exercises
-	1) Other than printing the total profit, print out the selected fraction of each item and the contribution it makes to the profit 
-	2) 1), but print out the items in the order in which they were accepted, without modifying the algorithm
-		Hint: you can modify the struct to store any additional information you may need
-		
-	Related to 2)
-	Given a list of numbers, remove any duplicates, while preserving the order of the numbers
-	Eg i/p: 2 3 1 2 5 3 1 6 7
-	Eg o/p: 2 3 1 5 1 6 7
-*/
