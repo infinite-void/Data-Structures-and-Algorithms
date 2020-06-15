@@ -1,4 +1,6 @@
 /* Author: Keshav 
+  Please report any bugs to the issue tracker on GitHub
+
   Please note that very few recursive algorithms can be trivially converted to iterative versions.
   In that aspect Binary Search is very simple.
 */
@@ -6,27 +8,31 @@
 #include <stdio.h>
 #include <stdlib.h> 
 
+/* Working:
+   Mid gives the first of the middle elements for even length sequences, and the exact middle for odd length.
+   
+   If the required element is in the middle, stop.
+   If the required element is less than array[mid], search the subarray a[start]...a[mid - 1] by setting end = mid - 1 
+   If not, search the subarray a[mid + 1]...a[end] by setting start = mid + 1 
+   
+   start > end means that there is no subarray to search - hence we terminate and return -1 to indicate that the element is not found
+  */
+
 int binary_search(int* array, int search, int start, int end)
 {
 	while (start <= end) {
-		/* This gives the first of the middle elements for even length sequences, and the exact middle for odd length  */
 		int mid = start + (end - start) / 2;
-		/* If the required element is in the middle, stop */
 		if (array[mid] == search) 
 			return mid;
-		/* If the element is less than the middle element, search in the first half*/
 		else if (array[mid] > search)
 			end = mid - 1;
-		/* If not, search in the second half */
 		else
 			start = mid + 1;
 	}
 	
-	/* Element is not found */
     if (start > end)
         return -1;
     
-	
 }
 
 int main(void) 
