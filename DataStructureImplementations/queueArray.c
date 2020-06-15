@@ -1,16 +1,31 @@
+//Author: infite-void
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
+/* This struct completey denotes the queue
+ * with a pointer to data container, front
+ * rear indices, current size and maximum 
+ * capacity/
+ */
 typedef struct Queue {
 	unsigned capacity;
 	int size, front, rear;
 	int* array;
 }Queue;
 
+/* This method allocates the memory for 
+ * data container and initializes the values in
+ * the struct queue
+ */
+
 Queue* createQueue(unsigned size) {
 	Queue* queue = (Queue*)malloc(sizeof(Queue));
-
+	
+	if(!queue) {
+		fprintf(stderr, "Error in memory allocation. \n");
+		return NULL:
+	}
 	queue->capacity = size;
 	queue->size     = 0;
 	queue->front    = 0;
@@ -19,6 +34,13 @@ Queue* createQueue(unsigned size) {
 
 	return queue;
 }
+
+/* The size of the queue is tracked
+ * with the size variable. this indicates a 
+ * empty queue when zero and a full queue
+ * when equal the queue->capacity
+ */
+
 bool isEmpty(Queue* queue) {
 	if(queue->size == 0)
 		return true;
@@ -30,6 +52,12 @@ bool isFull(Queue* queue) {
 		return true;
 	return false;
 }
+
+/* This simply returns with a message when queue is full.
+ * When not full the data value is added the rear of the
+ * queue and the rear index is increased by one. the size 
+ * variable is updated.
+ */
 
 void Enqueue(Queue* queue, int element) {
 	if(isFull(queue)) {
@@ -44,6 +72,12 @@ void Enqueue(Queue* queue, int element) {
 	return;
 }
 
+/* This simply returns with a message when queue is empty.
+ * This increases the front index of the queue and updates 
+ * size variable. This dequeued values will be overwritten 
+ * by another enqueued value at the same index.
+ */
+
 void Dequeue(Queue* queue) {
 	if(isEmpty(queue)) {
 		printf("Queue is empty. Cannot remove elements.\n");
@@ -57,6 +91,10 @@ void Dequeue(Queue* queue) {
 	return;
 }
 
+/* Returns INT_MIN with a message whn empty and
+ * returns element at front index if not.
+ */
+
 int Front(Queue* queue) {
 	if(isEmpty(queue)) {
 		printf("Queue is empty. No elements.\n");
@@ -64,6 +102,10 @@ int Front(Queue* queue) {
 	}
 	return queue->array[queue->front];
 }
+
+/* Returns INT_MIN with a message when empty and
+ * returns element at rear index if not.
+ */
 
 int Rear(Queue* queue) {
 	if(isEmpty(queue)) {
@@ -83,8 +125,8 @@ int main() {
 
 	queue = createQueue(size);
 	if(queue == NULL) {
-		printf("Error in queue creation.\n");
-		return 0;
+		fprintf(stderr, "Error in queue creation.\n");
+		return -1;
 	}
 operation:
 	printf("\n");
@@ -100,7 +142,7 @@ operation:
 		case 1:
 			printf("Enter element to add : ");
 			scanf("%d", &element);
-			Enqueue(queue, element);
+			Enqueue(queue, element);	
 			break;
 		case 2:
 			Dequeue(queue);
