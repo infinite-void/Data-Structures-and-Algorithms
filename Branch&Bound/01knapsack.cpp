@@ -1,7 +1,20 @@
+//Author: infinite-void
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
+
+/* In this approach of 01knapsack problem, we consider 
+ * the 2 cases for each element that is within given
+ * capacity of knapsack. For given element with index i is within the given
+ * capacity of knapsack we take the maximum values of these 2 case:
+ * 	1. elementvalue + value of knapsack with capacity reduced by the weight
+ * 	   of element which is fill by the items indexed i + 1 to n - 1.
+ * 	2. ignore the element the take value for the knapsack filled
+ * 	   by items indexed i + 1 to n - 1.
+ * If the ith element exceeds the capacity by weight we just ignore the 
+ * element and try to fill knapsack with elements indexed from i + 1 to n - 1.
+ */
 
 int maxValueKnapsack(vector<int> weights, vector<int> values, int start, int end, int capacity) {
 	if(start == end || capacity < 1) 

@@ -8,6 +8,13 @@
 #include <stack>
 using namespace std;
 
+/* In this program the recursion is replaced by 
+ * a stack. source vertex is pushed into the stack to begin
+ * with. The top of the stack is visited if not and removed.
+ * After pop the top the vertices adjacent to the popped out
+ * vertex is pushed into the stack.
+ */ 
+
 void depthFirstSearch(int n, vector<vector<int>> adjMat, vector<bool>& visited, int source) {
 	stack<int> graphStack;
 	graphStack.push(source);

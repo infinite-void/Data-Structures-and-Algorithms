@@ -1,25 +1,51 @@
+//Author: infinite-void
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
+/* This struct represents a node in a 
+ * linked list to form a queue
+ */
 typedef struct QueueNode {
 	int value;
 	struct QueueNode* nextNode;
 }QueueNode;
 
+/* This struct represent the queue itself
+ */
 typedef struct Queue {
 	QueueNode* front;
 	QueueNode* rear;
 }Queue;
 
+/* This method creates allocated memory 
+ * to initialise a queue
+ */
+
 Queue* createQueue() {
 	Queue* queue = (Queue*)malloc(sizeof(Queue));
+	
+	if(queue == NULL) {
+		fprintf(stderr, "Error in initialising queue.\n");
+		return NULL;
+	}
+
 	queue->front = NULL;
 	queue->rear  = NULL;
 	return queue;
 }
+
+/* THis method initialises a queueNode 
+ * with a given data value
+ */
+
 QueueNode* createQueueNode(int element) {
 	QueueNode* queueNode = (QueueNode*)malloc(sizeof(QueueNode));
+
+	if(queueNode == NULL) {
+		fprintf(stderr, "Error in creating node.\n");
+		return NULL;
+	}
 
 	queueNode->value = element;
 	queueNode->nextNode = NULL;
@@ -27,11 +53,18 @@ QueueNode* createQueueNode(int element) {
 	return queueNode;
 }
 
+/* This method get a new Node with the data 
+ * and adds the rearNode. It also changes the
+ * rear pointer to the newly created node.
+ * Either of queue->front or queue->rear 
+ * being NULL represents a NULL queue.
+ */
+
 void Enqueue(Queue* queue, int element) {
 	QueueNode* queueNode = createQueueNode(element);
 
 	if(queueNode == NULL) {
-		printf("Error in Node creation.\n");
+		fprintf(stderr, "Error in Node creation.\n");
 		return;
 	}
 
@@ -40,12 +73,21 @@ void Enqueue(Queue* queue, int element) {
 		queue->front = queueNode;
 		return;
 	}
+
 	(queue->rear)->nextNode = queueNode;
 	queue->rear = queueNode;
 	return;
 }
+ 
+/* This method return with message if queue is empty.
+ * If not it makes the queue->front->next the 
+ * queue->front and frees up the space used by the node.
+ * if queue->front becomes NULL it denotes an empty queue
+ * and sets queue->rear to NULL to clear the queue.
+ */
 
 void Dequeue(Queue* queue) {
+	
 	if(queue->front == NULL) {
 		printf("Queue is empty. Cannot remove elements.\n");
 		return;
@@ -61,6 +103,12 @@ void Dequeue(Queue* queue) {
 	free(deq);
 	return;
 }
+
+/* The front and rear method return INT_MIN
+ * with a message if queue is empty. If not 
+ * they return data value at front anfd rear of the
+ * queue respectively.
+ */
 
 int Front(Queue* queue) {
 	if(queue->front == NULL) {
@@ -104,6 +152,10 @@ operation:
 			printf("Enter element to add : ");
 			scanf("%d", &element);
 			Enqueue(queue, element);
+			if(queue == NULL) {
+				fprintf(stderr, "Error in queuing.\n");
+				return -1;
+			}
 			break;
 		case 2:
 			Dequeue(queue);

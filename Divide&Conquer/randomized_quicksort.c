@@ -4,6 +4,7 @@
 
 void quickSort(int*, int, int);
 int partition(int*, int, int);
+int getRandomIndex(int, int);
 void swap(int*, int*);
 
 int main() {
@@ -31,17 +32,9 @@ int main() {
 }
 
 
-/* The quicksort employs divide and conquer approach 
- * such that it partitions the given array based on
- * a pivot element (partition may or may not be of 
- * equal sizes). The elements to the left of the pivot 
- * element are less than the pivot element and those on 
- * the right are greater than or equal to it.
- * Now, the left and right partitions are sorted recursively
- * based on partitioning.
- * Arbitrarily, the right most element is always chosen as pivot.
- * This may have an worst case time complexity of O(n^2).
- * Randomized QuickSort may make this worst case scenario almost improbable.
+/* The randomized quicksort is same as the quicksort
+ * algorithm except for the selection of partition 
+ * element.
  */
 
 void quickSort(int* array, int left, int right) {
@@ -52,11 +45,21 @@ void quickSort(int* array, int left, int right) {
 	quickSort(array, partedIndex + 1, right);
 }
 
-/* Partition the array into 2 parts and return 
- * index of the pivot element.
+/* Picks a random index between the leftmost and
+ * rightmost index of the array as the pivot element.
+ * It then swaps the pivot element to the rightmost 
+ * index and starts partitioning the array based on the pivot element.
+ * This method is employed to avoid the case scenario where the input array
+ * is in a strictly-non-increasing fashion. This case makes the time 
+ * complexity O(n^2). By picking a random index this case
+ * is almost improbabale.
  */
 
 int partition(int* array, int left, int right) {
+	
+	int randomIndex = getRandomIndex(left, right);
+	swap(&array[right], &array[randomIndex]);
+
 	int pivot = array[right];
 	int partedIndex = left - 1;
 	int i;
@@ -71,6 +74,14 @@ int partition(int* array, int left, int right) {
 	return partedIndex;
 }
 
+/* The rand() function returns an integer in the
+ * range of 0 and RAND_MAX(which is typically 32767, 
+ * may vary depending on implementation). This rand() integer
+ * is used to pick a random index between min_index and max_index
+ */
+int getRandomIndex(int min_index, int max_index) {
+	return  min_index + (rand() %  (max_index - min_index + 1));
+}
 
 void swap(int* a, int* b) {
 	int temp = *a;

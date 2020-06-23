@@ -52,8 +52,8 @@ int main(void)
 	list = (item *) malloc(N * sizeof(item));
 	
 	if (!list) {
-		printf("Dynamic memory allocation failed!\n");
-		return (-1);
+		fprintf(stderr, "Dynamic memory allocation failed!\n");
+		return -1;
 	}
 	
 	printf("Enter the item's profit and weight in space separated pairs: ");
@@ -71,20 +71,24 @@ int main(void)
 	/* This step takes N log N time */
 	qsort(list, N, sizeof(item), compar);
 	
-	/* The algorithm now follows */
+	/* The algorithm now follows
+	
+	   At each step, we choose the item remaining with the best Profit to Weight ratio 
+	   If the entire item can be added to the knapsack, do so
+	   Otherwise add the fractional part - whatever part that fills the rest of the knapsack 
+	   (Wremaining / Witem) * Pitem gives the profit that can be obtained by the fraction
+	*/
+	
 	i = 0;
 	while (weight_so_far < C) {
-		/* At each step, we choose the item remaining with the best Profit to Weight ratio */
 		
-		/* If the entire item can be added to the knapsack, do so */
 		if (list[i].weight < (C - weight_so_far)) {
 			weight_so_far += list[i].weight;
 			Total_Profit += list[i].profit;
 			i++;
 		}
 		
-		/* Otherwise add the fractional part - whatever part that fills the rest of the knapsack */
-		/* (Wremaining / Witem) * Pitem gives the profit that can be obtained by the fraction */
+		
 		else {
 			Total_Profit += ( (((float)(C - weight_so_far)) / list[i].weight) * list[i].profit );
 			weight_so_far = C;
@@ -92,19 +96,8 @@ int main(void)
 			/* Technically, once a fractional part is added, the knapsack will always be full, so we can just break here */
 		}
 	}
-	
+    	
 	printf("The total profit that can be obtained is %f\n", Total_Profit);
 	
 	return 0;
 }
-
-/* Suggested exercises
-	1) Other than printing the total profit, print out the selected fraction of each item and the contribution it makes to the profit 
-	2) 1), but print out the items in the order in which they were accepted, without modifying the algorithm
-		Hint: you can modify the struct to store any additional information you may need
-		
-	Related to 2)
-	Given a list of numbers, remove any duplicates, while preserving the order of the numbers
-	Eg i/p: 2 3 1 2 5 3 1 6 7
-	Eg o/p: 2 3 1 5 1 6 7
-*/
