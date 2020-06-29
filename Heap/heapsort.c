@@ -13,7 +13,9 @@
    (heap_size / 2) - 1 gives the last possible parent/internal node
    (2 * root) + 1 will give root's left child
     
-   if j < (heap_size - 1) => right child also exists
+   if j < (heap_size - 1) => right child also exists. We select the greater among
+   the children and swap them with the root repeatedly until we run out of parent 
+   nodes
 */
  
 void sift_down(int* heap, int heap_size, int root)
@@ -40,11 +42,12 @@ void sift_down(int* heap, int heap_size, int root)
   heap[root] = key;
 }
 
-/* Call sift_down on all nodes on all internal nodes 
+/* Call sift_down on on all internal nodes 
    Time complexity - O(n)
    
    You can also build a heap by repeated insertion, which will take 
-   O(n log n) - this is more efficient
+   O(n log n) - Heapify is more efficient to build the heap from an 
+   array
  */
 
 void heapify(int* array, int array_size)
