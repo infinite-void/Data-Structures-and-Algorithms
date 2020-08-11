@@ -3,6 +3,21 @@
 #include <vector>
 using namespace std;
 
+/*  The recusrsive function `bb_subsetSum` takes a starting input vector, the staring index at 0,
+    and the expected sum. If expected sum is 0 it returns true as any input vector satisfies the
+    property of possessing an empty subset. If the Index exceeds the limit of vector(with non-zero
+    expected sum) or index goes below bound, it returns false.
+
+    If the element at currentIndex is greater than expectedSum the element cannot form a part of 
+    the subset. So it omits the element and recurses for the greater indices.
+
+    Else 
+    1. It recurses omitting the currentIndex 
+    2. Including the current Index(expectedSum is reduced when currentIndex is included). We recurse 
+        for the greate indices for a expectedSum that is less then current expectedSum by element 
+        at currentIndex.
+        We return true if either or both these cases are possible. 
+ */
 bool bb_subsetSum(const vector<int>& inputSet, int expectedSum, int currentIndex) {
     if(expectedSum == 0)
         return true;

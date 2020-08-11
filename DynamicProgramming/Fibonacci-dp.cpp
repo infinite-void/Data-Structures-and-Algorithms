@@ -3,6 +3,9 @@
 #include <vector>
 using namespace std;
 
+/*  This is a simple example of dynamic programming where find nth member of 
+    fibonacci series by the previous memebers. (bottom-up)
+ */
 void fill_up(vector<int>& fibonacci, const int end) {
     if(fibonacci.size() >= end) 
         return;

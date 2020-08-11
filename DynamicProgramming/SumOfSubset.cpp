@@ -3,6 +3,19 @@
 #include <vector>
 using namespace std;
 
+/*  Dynamic Programming here, invloves a tabulation of `expectedSum + 1` rows and columns equal to the 
+    number of elements in the set.
+    Here every cell is either true or false.
+    `true` at dp[i][j] denotes that there exists a subset within the set of 0 to j - 1 elements
+    that make up the sum i.
+    `false` denotes that such subset does not exist.
+
+    dp[i][j] can be true if dp[i][j - 1]. (Subset already exists and j -1 element doesnot matter).
+    If j - 1 element is smaller or equal to i, dp[i][j] can be true if dp[i - `j-1 element`][j - 1],
+    (j-1 element matters).
+
+    dp[expectedSum][inputSet.size()] denotes if a subset with expectedSum exists in whole inputSet.
+ */
 bool dp_subsetSum(const vector<int>& inputSet, const int& expectedSum) {
     vector<vector<bool>> dp(expectedSum + 1, vector<bool>(inputSet.size() + 1, false));
     
