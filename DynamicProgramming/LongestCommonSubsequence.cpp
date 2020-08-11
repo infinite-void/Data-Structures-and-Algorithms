@@ -1,3 +1,4 @@
+//Author: infinite-void
 #include <iostream>
 #include <string>
 #include <algorithm>

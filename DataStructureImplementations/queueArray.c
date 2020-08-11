@@ -24,7 +24,7 @@ Queue* createQueue(unsigned size) {
 	
 	if(!queue) {
 		fprintf(stderr, "Error in memory allocation. \n");
-		return NULL:
+		return NULL;
 	}
 	queue->capacity = size;
 	queue->size     = 0;

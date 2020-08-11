@@ -1,3 +1,8 @@
+//Author: infinite-void
+
+// IMPORTANT: THIS IS NOT THE CORRECT WAY TO BUILD A BALANCED BINARY SEARCH TREE.
+// REFER ADVANCED TREE STRUCTURES(red-black, AVL) FOR MORE INFO ON BALANCED BSTs.
+ 
 #include <iostream>
 #include <vector>
 #include <algorithm>
