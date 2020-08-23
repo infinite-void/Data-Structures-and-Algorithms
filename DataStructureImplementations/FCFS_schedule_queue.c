@@ -1,3 +1,4 @@
+//author: infinite-void
 #include <stdio.h>
 #include <stdlib.h>
 #define PROCESS_SIZE 3
