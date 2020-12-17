@@ -32,6 +32,21 @@ int maxValueKnapsack(vector<int> weights, vector<int> values, int knapsackCapaci
 				dp[i][j] = dp[i][j - 1];
 		}
 	}
+	
+        int currentWeight = knapsackCapacity, currentItem = weights.size();
+        cout << "Weight-Value Pairs :" << endl;
+
+        while(currentWeight != 0 && currentItem != 0) {
+                        
+                if(dp[currentWeight][currentItem] == dp[currentWeight - weights[currentItem - 1]][currentItem - 1] + values[currentItem - 1]) {
+                        cout << weights[currentItem - 1] << " " << values[currentItem - 1] << endl;
+                        currentWeight -= weights[currentItem - 1];
+                }
+
+                currentItem -= 1;      
+        }
+        cout << "MAX VALUE : " << endl;
+
 	return dp[knapsackCapacity][weights.size()];
 }
 
